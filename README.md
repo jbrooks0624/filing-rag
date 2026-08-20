@@ -2,6 +2,14 @@
 
 SEC filing RAG with a measured retrieval evaluation harness.
 
+## Use case
+
+Ask a question against Items 1A, 7, and 7A of 27 10-Ks (MSFT / GOOGL / AMZN, JPM / BAC / GS, PFE / MRK / LLY × FY2022–FY2024). Retrieval returns cited chunks; generation must answer with `[TICKER FYyear Item CODE]` citations or reply exactly `Not in the corpus.` when the filings do not support it. The golden set uses NVDA, WFC, and ABBV as those out-of-corpus probes.
+
+That covers the question types in [`eval/golden_set.yaml`](eval/golden_set.yaml): a fact in one filing, a year-over-year change at one company, a comparison inside tech / banks / pharma, or a comparison across sectors. `--ticker` / `--year` / `--item` (and the same fields on `POST /query`) scope retrieval when the slice is already known.
+
+The other use is the harness itself. Stage 1 scores all 18 retrieval configs with no LLM calls; Stage 2 generates and runs RAGAS on the winning chunker’s 6 configs; `filing-rag report` writes those numbers into this README. `filing-rag serve` and Compose `app` expose the same retrieve-then-generate path over HTTP. There is no product UI.
+
 ## Setup
 
 Python 3.14 (pinned). Copy `.env.example` to `.env` and set a descriptive EDGAR User-Agent (name + contact email).
@@ -174,6 +182,16 @@ ragas 0.4 still talks Chat Completions. Serving uses the Responses API. `gpt-5.6
 The Docker app is CPU torch. Local `uv run` on Apple Silicon uses MPS. Those two latency profiles are not interchangeable; p95 in the ablation is the local serving path.
 
 Stage 2 is sequential and writes JSONL only at the end. There is no incremental dump, so a crash loses the run.
+
+## Future additions
+
+Item 8 with table-aware retrieval, plus 10-Qs / 8-Ks and a larger issuer set, so answers can use financial statements and more than annual risk/MD&A text.
+
+Move sparse retrieval into Postgres (BM25 or `ts_rank` labeled honestly) so serving is not memory-bound on bm25s. Sweep HNSW `m` / `ef_construction`. Install CPU torch wheels in Docker so the app image is not 9.21GB of unused CUDA.
+
+A held-out judge model, ragas on the Responses API, incremental Stage 2 JSONL, and a Postgres `eval_results` table so a crash does not lose a run and the ablation is regenerable from the database.
+
+A small UI over `POST /query` SSE (citations, tokens, `done`). Keep API dollars and local embed/rerank milliseconds as separate columns.
 
 ## Techniques
 
