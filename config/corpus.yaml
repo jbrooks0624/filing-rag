@@ -1,0 +1,31 @@
+form_types: ["10-K"]
+fiscal_years: [2022, 2023, 2024]
+items: ["1A", "7", "7A"]
+companies:
+  - ticker: MSFT
+    cik: "0000789019"
+    sector: tech
+  - ticker: GOOGL
+    cik: "0001652044"
+    sector: tech
+  - ticker: AMZN
+    cik: "0001018724"
+    sector: tech
+  - ticker: JPM
+    cik: "0000019617"
+    sector: banks
+  - ticker: BAC
+    cik: "0000070858"
+    sector: banks
+  - ticker: GS
+    cik: "0000886982"
+    sector: banks
+  - ticker: PFE
+    cik: "0000078003"
+    sector: pharma
+  - ticker: MRK
+    cik: "0000310158"
+    sector: pharma
+  - ticker: LLY
+    cik: "0000059478"
+    sector: pharma

@@ -1,0 +1,605 @@
+# 50-question golden set (20 single_hop, 10 temporal, 10 within_sector,
+# 5 cross_sector, 5 unanswerable). Citations are (accession, item_code);
+# matching is section-level so recall is comparable across chunkers.
+questions:
+- id: sh-001
+  type: single_hop
+  query: What cybersecurity incidents does Microsoft disclose in its FY2024 10-K?
+  answerable: true
+  answer: Microsoft says it has experienced cybersecurity incidents in which actors gained unauthorized
+    access to IT systems and data, including customer systems and data.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: 1A
+    quote: we have experienced cybersecurity incidents in which such actors have gained unauthorized access
+      to our IT systems and data, including customer systems and data.
+- id: sh-002
+  type: single_hop
+  query: How fast did Microsoft's Azure and other cloud services grow in FY2024?
+  answerable: true
+  answer: Server products and cloud services revenue increased 22%, driven by Azure and other cloud services
+    growth of 30%.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: '7'
+    quote: Server products and cloud services revenue increased 22% driven by Azure and other cloud services
+      growth of 30%.
+- id: sh-003
+  type: single_hop
+  query: What foreign-currency risk does Microsoft disclose in FY2024 Item 7A?
+  answerable: true
+  answer: Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: 7A
+    quote: Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk.
+- id: sh-004
+  type: single_hop
+  query: How does Alphabet describe generative AI as a competitive risk in FY2024?
+  answerable: true
+  answer: Alphabet is integrating generative AI into products and says AI technology and services are
+    highly competitive, rapidly evolving, and require significant investment.
+  citations:
+  - accession: 0001652044-25-000014
+    item_code: 1A
+    quote: This includes generative AI and continuing to integrate AI capabilities into our products and
+      services.
+- id: sh-005
+  type: single_hop
+  query: What operating segments does Alphabet report for Google in FY2024?
+  answerable: true
+  answer: Google is reported in two segments, Google Services and Google Cloud, with other businesses
+    as Other Bets.
+  citations:
+  - accession: 0001652044-25-000014
+    item_code: '7'
+    quote: We report Google in two segments, Google Services and Google Cloud; we also report all non-Google
+      businesses collectively as Other Bets.
+- id: sh-006
+  type: single_hop
+  query: How does Alphabet hedge foreign-exchange risk on monetary assets in FY2024?
+  answerable: true
+  answer: It uses foreign currency forward and option contracts to offset FX risk on monetary assets and
+    liabilities in non-functional currencies.
+  citations:
+  - accession: 0001652044-25-000014
+    item_code: 7A
+    quote: We use foreign currency forward and option contracts to offset the foreign exchange risk on
+      monetary assets and liabilities denominated in currencies other than the functional currency of
+      the subsidiary.
+- id: sh-007
+  type: single_hop
+  query: Where does Amazon record Prime membership fees in FY2024 net sales?
+  answerable: true
+  answer: Service sales include Amazon Prime membership fees along with third-party seller fees, AWS,
+    advertising, and digital media subscriptions.
+  citations:
+  - accession: 0001018724-25-000004
+    item_code: '7'
+    quote: Amazon Prime membership fees, and certain digital media content subscriptions.
+- id: sh-008
+  type: single_hop
+  query: What does Amazon say about competition in cloud services in its FY2024 risk factors?
+  answerable: true
+  answer: As cloud services and other services grow, competition will intensify, including through evolving
+    business models.
+  citations:
+  - accession: 0001018724-25-000004
+    item_code: 1A
+    quote: cloud services, and other services grow, competition will intensify, including through adoption
+      of evolving business models.
+- id: sh-009
+  type: single_hop
+  query: Does Amazon include AWS run-rate costs in variable costs in FY2024 MD&A?
+  answerable: true
+  answer: Yes. Variable costs include costs necessary to run AWS and a portion of marketing costs.
+  citations:
+  - accession: 0001018724-25-000004
+    item_code: '7'
+    quote: costs necessary to run AWS, and a portion of our marketing costs.
+- id: sh-010
+  type: single_hop
+  query: What third-party cybersecurity limitation does JPMorgan disclose in FY2024?
+  answerable: true
+  answer: JPMorganChase says it does not control the cybersecurity of systems of clients, customers, counterparties,
+    and third-party service providers.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: does not have control over the cybersecurity of the systems of the large number of clients,
+      customers, counterparties and third-party service providers
+- id: sh-011
+  type: single_hop
+  query: How do higher interest rates affect JPMorgan's net interest income in FY2024 risk factors?
+  answerable: true
+  answer: When rates are high or increasing, JPMorgan can generally be expected to earn higher net interest
+    income, but higher rates can also reduce loan originations.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: 'can generally be expected to earn higher net interest income. However, higher interest rates
+      can also lead to:'
+- id: sh-012
+  type: single_hop
+  query: Where does JPMorgan point readers for FY2024 market-risk disclosures?
+  answerable: true
+  answer: Item 7A refers to the Market Risk Management section of MD&A on pages 141–149.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 7A
+    quote: Refer to the Market Risk Management section of Management’s discussion and analysis on pages
+      141–149 for a discussion of quantitative and qualitative disclosures about market risk.
+- id: sh-013
+  type: single_hop
+  query: What emerging-technology risk does Bank of America list alongside cybersecurity in FY2024?
+  answerable: true
+  answer: Cybersecurity incidents plus risks from developing, implementing, using, and managing emerging
+    technologies including artificial intelligence and machine learning.
+  citations:
+  - accession: 0000070858-25-000139
+    item_code: 1A
+    quote: cybersecurity incidents; the risks related to the development, implementation, use and management
+      of emerging technologies, including artificial intelligence and machine learning;
+- id: sh-014
+  type: single_hop
+  query: Which BAC FY2024 MD&A section covers interest-rate risk in the banking book?
+  answerable: true
+  answer: Interest Rate Risk Management for the Banking Book, listed at page 78 in the Item 7 table of
+    contents.
+  citations:
+  - accession: 0000070858-25-000139
+    item_code: '7'
+    quote: Interest Rate Risk Management for the Banking Book | 78
+- id: sh-015
+  type: single_hop
+  query: What cyber-attack risk does Goldman Sachs highlight in FY2024?
+  answerable: true
+  answer: A failure to protect systems and client information against cyber attacks could impair its ability
+    to conduct business and result in disclosure, theft, or destruction of confidential information.
+  citations:
+  - accession: 0000886982-25-000005
+    item_code: 1A
+    quote: against cyber attacks and similar threats could impair our ability to conduct our businesses,
+      result in the disclosure, theft or destruction of confidential information
+- id: sh-016
+  type: single_hop
+  query: What liquidity risk does Goldman Sachs disclose in FY2024 Item 1A?
+  answerable: true
+  answer: Liquidity, profitability, and businesses may be adversely affected by an inability to access
+    the debt capital markets or to sell assets.
+  citations:
+  - accession: 0000886982-25-000005
+    item_code: 1A
+    quote: Our liquidity, profitability and businesses may be adversely affected by an inability to access
+      the debt capital markets or to sell assets.
+- id: sh-017
+  type: single_hop
+  query: How did Paxlovid contribute to Pfizer's FY2024 operational growth?
+  answerable: true
+  answer: Pfizer reports worldwide growth from Paxlovid of $4,452 million.
+  citations:
+  - accession: 0000078003-25-000054
+    item_code: 1A
+    quote: Worldwide growth from Paxlovid | $ | 4,452 | $ | 5,905 | $ | (1,453)
+- id: sh-018
+  type: single_hop
+  query: When does Merck expect U.S. Keytruda sales to decline under the IRA in its FY2024 10-K?
+  answerable: true
+  answer: U.S. sales of Keytruda are expected to decline beginning in January 2028 upon implementation
+    of government pricing under the IRA.
+  citations:
+  - accession: 0001628280-25-007732
+    item_code: 1A
+    quote: to decline beginning in January 2028 upon implementation of government pricing under the IRA,
+      and to further decline upon loss of market exclusivity
+- id: sh-019
+  type: single_hop
+  query: Which products drove Lilly's FY2024 revenue increase?
+  answerable: true
+  answer: Mounjaro, Zepbound, and Verzenio, partially offset by Trulicity.
+  citations:
+  - accession: 0000059478-25-000067
+    item_code: '7'
+    quote: The increase in revenue in 2024 was primarily driven by Mounjaro, Zepbound, and Verzenio, partially
+      offset by Trulicity.
+- id: sh-020
+  type: single_hop
+  query: Which Lilly products exceeded $3 billion of revenue in FY2024?
+  answerable: true
+  answer: Lilly lists Mounjaro, Verzenio, Trulicity, Zepbound, Jardiance (and related combinations), and
+    Taltz as each exceeding $3 billion.
+  citations:
+  - accession: 0000059478-25-000067
+    item_code: 1A
+    quote: more than $3 billion for each of Mounjaro, Verzenio, Trulicity, Zepbound, Jardiance (including
+      Glyxambi, Synjardy, and Trijardy XR), and Taltz
+- id: tm-001
+  type: temporal
+  query: How did Microsoft's Azure growth rate change from FY2023 to FY2024?
+  answerable: true
+  answer: Azure and other cloud services grew 29% in FY2023 and 30% in FY2024; server products and cloud
+    services revenue grew 19% then 22%.
+  citations:
+  - accession: 0000950170-23-035122
+    item_code: '7'
+    quote: Server products and cloud services revenue increased 19% driven by Azure and other cloud services
+      growth of 29%.
+  - accession: 0000950170-24-087843
+    item_code: '7'
+    quote: Server products and cloud services revenue increased 22% driven by Azure and other cloud services
+      growth of 30%.
+- id: tm-002
+  type: temporal
+  query: How does Microsoft describe its OpenAI partnership in FY2023 versus FY2024 risk factors?
+  answerable: true
+  answer: Both years state that in January 2023 Microsoft announced the third phase of its OpenAI strategic
+    partnership.
+  citations:
+  - accession: 0000950170-23-035122
+    item_code: 1A
+    quote: In January 2023 we announced the third phase of our OpenAI strategic partnership.
+  - accession: 0000950170-24-087843
+    item_code: 1A
+    quote: In January 2023 we announced the third phase of our OpenAI strategic partnership.
+- id: tm-003
+  type: temporal
+  query: Did Alphabet still report Google Services and Google Cloud as segments in both FY2023 and FY2024?
+  answerable: true
+  answer: Yes. Both years report Google in two segments, Google Services and Google Cloud, plus Other
+    Bets.
+  citations:
+  - accession: 0001652044-24-000022
+    item_code: '7'
+    quote: We report Google in two segments, Google Services and Google Cloud; we also report all non-Google
+      businesses collectively as Other Bets.
+  - accession: 0001652044-25-000014
+    item_code: '7'
+    quote: We report Google in two segments, Google Services and Google Cloud; we also report all non-Google
+      businesses collectively as Other Bets.
+- id: tm-004
+  type: temporal
+  query: Did Amazon still treat AWS run costs as variable costs in FY2023 and FY2024?
+  answerable: true
+  answer: Yes. Both years include costs necessary to run AWS in variable costs.
+  citations:
+  - accession: 0001018724-24-000008
+    item_code: '7'
+    quote: costs necessary to run AWS, and a portion of our marketing costs.
+  - accession: 0001018724-25-000004
+    item_code: '7'
+    quote: costs necessary to run AWS, and a portion of our marketing costs.
+- id: tm-005
+  type: temporal
+  query: How did Pfizer's Paxlovid contribution change from FY2023 to FY2024?
+  answerable: true
+  answer: FY2023 showed worldwide declines from Paxlovid; FY2024 showed worldwide growth from Paxlovid
+    of $4,452 million.
+  citations:
+  - accession: 0000078003-24-000039
+    item_code: 1A
+    quote: Worldwide declines from Paxlovid | (17,506) | (11,803) | (5,703)
+  - accession: 0000078003-25-000054
+    item_code: 1A
+    quote: Worldwide growth from Paxlovid | $ | 4,452 | $ | 5,905 | $ | (1,453)
+- id: tm-006
+  type: temporal
+  query: How did Lilly's description of Mounjaro as a growth driver change from FY2023 to FY2024?
+  answerable: true
+  answer: FY2023 revenue growth was primarily driven by sales of Mounjaro, Verzenio, and Jardiance. FY2024
+    was driven by Mounjaro, Zepbound, and Verzenio, offset by Trulicity.
+  citations:
+  - accession: 0000059478-24-000065
+    item_code: '7'
+    quote: primarily driven by sales of Mounjaro
+  - accession: 0000059478-25-000067
+    item_code: '7'
+    quote: The increase in revenue in 2024 was primarily driven by Mounjaro, Zepbound, and Verzenio, partially
+      offset by Trulicity.
+- id: tm-007
+  type: temporal
+  query: How did Merck's Keytruda U.S. cliff language change between FY2023 and FY2024?
+  answerable: true
+  answer: FY2023 discusses 2028 exclusivity and an expected U.S. sales decline thereafter. FY2024 adds
+    an IRA pricing decline beginning January 2028 before the exclusivity drop.
+  citations:
+  - accession: 0001628280-24-006850
+    item_code: 1A
+    quote: in 2028 and the Company anticipates that sales of
+  - accession: 0001628280-25-007732
+    item_code: 1A
+    quote: to decline beginning in January 2028 upon implementation of government pricing under the IRA,
+      and to further decline upon loss of market exclusivity
+- id: tm-008
+  type: temporal
+  query: How does JPMorgan describe third-party cybersecurity risk in FY2023 versus FY2024?
+  answerable: true
+  answer: Both years say the firm does not control cybersecurity of client, customer, counterparty, and
+    third-party systems.
+  citations:
+  - accession: 0000019617-24-000225
+    item_code: 1A
+    quote: does not have control over the cybersecurity of the systems of the large number of clients,
+      customers, counterparties and third-party service providers
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: does not have control over the cybersecurity of the systems of the large number of clients,
+      customers, counterparties and third-party service providers
+- id: tm-009
+  type: temporal
+  query: Does Goldman Sachs still warn about cyber attacks in both FY2023 and FY2024?
+  answerable: true
+  answer: Yes. Both years warn that failure to protect against cyber attacks could impair its ability
+    to conduct businesses and result in disclosure or theft of confidential information.
+  citations:
+  - accession: 0000886982-24-000006
+    item_code: 1A
+    quote: against cyber attacks and similar threats could impair our ability to conduct our businesses,
+      result in the disclosure, theft or destruction of confidential information
+  - accession: 0000886982-25-000005
+    item_code: 1A
+    quote: against cyber attacks and similar threats could impair our ability to conduct our businesses,
+      result in the disclosure, theft or destruction of confidential information
+- id: tm-010
+  type: temporal
+  query: How did Lilly frame GLP-1 dependence in FY2022 versus product concentration in FY2024?
+  answerable: true
+  answer: FY2022 said GLP-1s including newly launched Mounjaro would be a significant and growing portion
+    of the business. FY2024 lists six products each over $3 billion, including Mounjaro and Zepbound.
+  citations:
+  - accession: 0000059478-23-000082
+    item_code: 1A
+    quote: we expect GLP-1s, including Mounjaro, which we launched in 2022, to represent a significant
+      and growing portion of our business.
+  - accession: 0000059478-25-000067
+    item_code: 1A
+    quote: more than $3 billion for each of Mounjaro, Verzenio, Trulicity, Zepbound, Jardiance (including
+      Glyxambi, Synjardy, and Trijardy XR), and Taltz
+- id: ws-001
+  type: within_sector
+  query: How do Microsoft and Alphabet describe AI partnership or product integration risk in FY2024?
+  answerable: true
+  answer: Microsoft discusses the third phase of its OpenAI partnership; Alphabet discusses integrating
+    generative AI into products in a highly competitive AI market.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: 1A
+    quote: In January 2023 we announced the third phase of our OpenAI strategic partnership.
+  - accession: 0001652044-25-000014
+    item_code: 1A
+    quote: This includes generative AI and continuing to integrate AI capabilities into our products and
+      services.
+- id: ws-002
+  type: within_sector
+  query: How do Microsoft and Amazon describe cloud growth or AWS costs in FY2024 MD&A?
+  answerable: true
+  answer: Microsoft reports Azure and other cloud services growth of 30%. Amazon includes costs necessary
+    to run AWS in variable costs.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: '7'
+    quote: Server products and cloud services revenue increased 22% driven by Azure and other cloud services
+      growth of 30%.
+  - accession: 0001018724-25-000004
+    item_code: '7'
+    quote: costs necessary to run AWS, and a portion of our marketing costs.
+- id: ws-003
+  type: within_sector
+  query: How do Alphabet and Amazon describe competition or antitrust pressure in FY2024 risk factors?
+  answerable: true
+  answer: Alphabet faces several antitrust lawsuits about advertising, Search, and Android. Amazon says
+    competition in cloud and other services will intensify.
+  citations:
+  - accession: 0001652044-25-000014
+    item_code: 1A
+    quote: several antitrust lawsuits about various aspects of our business, including our advertising
+      technologies and practices, the operation and distribution of Google Search
+  - accession: 0001018724-25-000004
+    item_code: 1A
+    quote: cloud services, and other services grow, competition will intensify, including through adoption
+      of evolving business models.
+- id: ws-004
+  type: within_sector
+  query: How do JPMorgan and Bank of America describe cybersecurity risk in FY2024?
+  answerable: true
+  answer: JPMorgan emphasizes it does not control third-party cybersecurity. BAC lists cybersecurity incidents
+    alongside AI/ML emerging-technology risk.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: does not have control over the cybersecurity of the systems of the large number of clients,
+      customers, counterparties and third-party service providers
+  - accession: 0000070858-25-000139
+    item_code: 1A
+    quote: cybersecurity incidents; the risks related to the development, implementation, use and management
+      of emerging technologies, including artificial intelligence and machine learning;
+- id: ws-005
+  type: within_sector
+  query: How do JPMorgan and Goldman Sachs describe funding or liquidity pressure in FY2024?
+  answerable: true
+  answer: JPMorgan notes higher rates can lift net interest income but hurt loan originations. Goldman
+    warns liquidity may suffer if it cannot access debt capital markets or sell assets.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: 'can generally be expected to earn higher net interest income. However, higher interest rates
+      can also lead to:'
+  - accession: 0000886982-25-000005
+    item_code: 1A
+    quote: Our liquidity, profitability and businesses may be adversely affected by an inability to access
+      the debt capital markets or to sell assets.
+- id: ws-006
+  type: within_sector
+  query: How do Bank of America and Goldman Sachs describe cyber or AI technology risk in FY2024?
+  answerable: true
+  answer: BAC lists cybersecurity incidents and AI/ML implementation risk. Goldman warns cyber attacks
+    could impair operations and leak confidential information.
+  citations:
+  - accession: 0000070858-25-000139
+    item_code: 1A
+    quote: cybersecurity incidents; the risks related to the development, implementation, use and management
+      of emerging technologies, including artificial intelligence and machine learning;
+  - accession: 0000886982-25-000005
+    item_code: 1A
+    quote: against cyber attacks and similar threats could impair our ability to conduct our businesses,
+      result in the disclosure, theft or destruction of confidential information
+- id: ws-007
+  type: within_sector
+  query: How do Pfizer and Merck describe concentration in a key product in FY2024?
+  answerable: true
+  answer: Pfizer reports worldwide Paxlovid growth of $4.5 billion. Merck expects U.S. Keytruda sales
+    to decline beginning January 2028 under IRA pricing.
+  citations:
+  - accession: 0000078003-25-000054
+    item_code: 1A
+    quote: Worldwide growth from Paxlovid | $ | 4,452 | $ | 5,905 | $ | (1,453)
+  - accession: 0001628280-25-007732
+    item_code: 1A
+    quote: to decline beginning in January 2028 upon implementation of government pricing under the IRA,
+      and to further decline upon loss of market exclusivity
+- id: ws-008
+  type: within_sector
+  query: How do Merck and Lilly describe FY2024 dependence on a blockbuster franchise?
+  answerable: true
+  answer: Merck flags a Keytruda U.S. sales decline from January 2028. Lilly says six products including
+    Mounjaro and Zepbound each exceeded $3 billion.
+  citations:
+  - accession: 0001628280-25-007732
+    item_code: 1A
+    quote: to decline beginning in January 2028 upon implementation of government pricing under the IRA,
+      and to further decline upon loss of market exclusivity
+  - accession: 0000059478-25-000067
+    item_code: 1A
+    quote: more than $3 billion for each of Mounjaro, Verzenio, Trulicity, Zepbound, Jardiance (including
+      Glyxambi, Synjardy, and Trijardy XR), and Taltz
+- id: ws-009
+  type: within_sector
+  query: How do Pfizer FY2022 and Lilly FY2024 describe foreign-exchange or currency effects?
+  answerable: true
+  answer: Pfizer reports an unfavorable impact of foreign exchange of $5,527 million in FY2022. Lilly
+    says changes in foreign currency rates, interest rates, and inflation affect results.
+  citations:
+  - accession: 0000078003-23-000024
+    item_code: 1A
+    quote: Unfavorable impact of foreign exchange | (5,527) | — | (5,527)
+  - accession: 0000059478-25-000067
+    item_code: 1A
+    quote: Changes in foreign currency rates, interest rate risks, and inflation or deflation affect our
+      results of operations.
+- id: ws-010
+  type: within_sector
+  query: How do JPMorgan and Bank of America point to market-risk or rate-risk discussion in FY2024?
+  answerable: true
+  answer: JPMorgan Item 7A refers to MD&A Market Risk Management pages 141–149. BAC Item 7 lists Interest
+    Rate Risk Management for the Banking Book at page 78.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 7A
+    quote: Refer to the Market Risk Management section of Management’s discussion and analysis on pages
+      141–149 for a discussion of quantitative and qualitative disclosures about market risk.
+  - accession: 0000070858-25-000139
+    item_code: '7'
+    quote: Interest Rate Risk Management for the Banking Book | 78
+- id: cs-001
+  type: cross_sector
+  query: How do Microsoft and JPMorgan describe cybersecurity risk in FY2024?
+  answerable: true
+  answer: Microsoft reports cybersecurity incidents with unauthorized access to IT and customer systems.
+    JPMorgan says it does not control cybersecurity at clients and third parties.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: 1A
+    quote: we have experienced cybersecurity incidents in which such actors have gained unauthorized access
+      to our IT systems and data, including customer systems and data.
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: does not have control over the cybersecurity of the systems of the large number of clients,
+      customers, counterparties and third-party service providers
+- id: cs-002
+  type: cross_sector
+  query: How do Alphabet and Bank of America describe artificial intelligence risk in FY2024?
+  answerable: true
+  answer: Alphabet says generative AI is highly competitive and capital intensive. BAC lists AI and machine
+    learning among emerging-technology risks next to cybersecurity incidents.
+  citations:
+  - accession: 0001652044-25-000014
+    item_code: 1A
+    quote: AI technology and services are highly competitive, rapidly evolving, and require significant
+      investment
+  - accession: 0000070858-25-000139
+    item_code: 1A
+    quote: cybersecurity incidents; the risks related to the development, implementation, use and management
+      of emerging technologies, including artificial intelligence and machine learning;
+- id: cs-003
+  type: cross_sector
+  query: How do Amazon and Goldman Sachs describe liquidity or scale-related operating risk in FY2024?
+  answerable: true
+  answer: Amazon says cloud and other services competition will intensify. Goldman warns it may be unable
+    to access debt capital markets or sell assets.
+  citations:
+  - accession: 0001018724-25-000004
+    item_code: 1A
+    quote: cloud services, and other services grow, competition will intensify, including through adoption
+      of evolving business models.
+  - accession: 0000886982-25-000005
+    item_code: 1A
+    quote: Our liquidity, profitability and businesses may be adversely affected by an inability to access
+      the debt capital markets or to sell assets.
+- id: cs-004
+  type: cross_sector
+  query: How do Microsoft and Lilly describe foreign-currency exposure in FY2024?
+  answerable: true
+  answer: Microsoft Item 7A says forecasted transactions, assets, and liabilities are exposed to foreign
+    currency risk. Lilly Item 1A says FX rates, interest rates, and inflation affect results.
+  citations:
+  - accession: 0000950170-24-087843
+    item_code: 7A
+    quote: Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk.
+  - accession: 0000059478-25-000067
+    item_code: 1A
+    quote: Changes in foreign currency rates, interest rate risks, and inflation or deflation affect our
+      results of operations.
+- id: cs-005
+  type: cross_sector
+  query: How do JPMorgan and Pfizer describe interest-rate or FX macro sensitivity?
+  answerable: true
+  answer: JPMorgan FY2024 says higher rates generally lift net interest income. Pfizer FY2022 reports
+    an unfavorable foreign-exchange impact of $5,527 million.
+  citations:
+  - accession: 0000019617-25-000270
+    item_code: 1A
+    quote: 'can generally be expected to earn higher net interest income. However, higher interest rates
+      can also lead to:'
+  - accession: 0000078003-23-000024
+    item_code: 1A
+    quote: Unfavorable impact of foreign exchange | (5,527) | — | (5,527)
+- id: ua-001
+  type: unanswerable
+  query: What did NVIDIA disclose in its FY2024 10-K about data-center GPU supply constraints?
+  answerable: false
+  answer: Not in the corpus. NVDA is not one of the nine filers.
+  citations: []
+- id: ua-002
+  type: unanswerable
+  query: How did Wells Fargo describe its deposit franchise after the 2023 regional-bank stress in its
+    FY2024 10-K?
+  answerable: false
+  answer: Not in the corpus. WFC is an out-of-corpus refusal target.
+  citations: []
+- id: ua-003
+  type: unanswerable
+  query: What did AbbVie say about Humira biosimilar erosion in its FY2024 10-K?
+  answerable: false
+  answer: Not in the corpus. ABBV is an out-of-corpus refusal target.
+  citations: []
+- id: ua-004
+  type: unanswerable
+  query: What commentary did NVIDIA provide on CUDA and Hopper GPU demand in its FY2024 10-K?
+  answerable: false
+  answer: Not in the corpus. NVDA filings are excluded so retrieval should not find an in-corpus answer.
+  citations: []
+- id: ua-005
+  type: unanswerable
+  query: How did Wells Fargo describe consumer overdraft-fee changes in its FY2023 10-K?
+  answerable: false
+  answer: Not in the corpus. WFC is not ingested.
+  citations: []

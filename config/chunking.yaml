@@ -1,0 +1,10 @@
+tokenizer: BAAI/bge-base-en-v1.5
+max_tokens: 512
+fixed:
+  size: 400
+  overlap: 80
+structural:
+  max_header_chars: 120
+semantic:
+  breakpoint_percentile: 95
+  encoder: BAAI/bge-base-en-v1.5

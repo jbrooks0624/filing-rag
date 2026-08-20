@@ -1,0 +1,63 @@
+[project]
+name = "filing-rag"
+version = "0.1.0"
+description = "SEC filing RAG with a measured retrieval evaluation harness"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "bm25s",
+    "fastapi",
+    "httpx",
+    "huggingface-hub",
+    # ragas 0.4.3 imports ChatVertexAI from langchain-community at import time;
+    # that path was removed in 0.4. Pin the 0.3 stack ragas 0.4 was built against.
+    "langchain>=0.3,<1",
+    "langchain-community>=0.3,<0.4",
+    "langchain-core>=0.3,<1",
+    "langchain-openai>=0.3,<1",
+    "openai",
+    "pgvector",
+    "psycopg[binary]",
+    "pydantic",
+    "pydantic-settings",
+    "pyyaml",
+    "ragas>=0.4,<0.5",
+    "selectolax",
+    "sentence-transformers>=3",
+    "tokenizers",
+    "typer",
+    "uvicorn",
+]
+
+[project.scripts]
+filing-rag = "filing_rag.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["filing_rag"]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-httpx",
+    "ruff",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["--import-mode=importlib"]
+
+[tool.ruff]
+src = ["filing_rag", "tests"]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

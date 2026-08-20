@@ -1,0 +1,39 @@
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_USER: filing
+      POSTGRES_PASSWORD: filing
+      POSTGRES_DB: filing_rag
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U filing -d filing_rag"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://filing:filing@db:5432/filing_rag
+      DATA_DIR: /app/data
+      HF_HOME: /models
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      EDGAR_USER_AGENT: ${EDGAR_USER_AGENT}
+    volumes:
+      - ./data:/app/data
+      - models:/models
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["filing-rag", "serve", "--host", "0.0.0.0", "--port", "8000"]
+
+volumes:
+  pgdata:
+  models:

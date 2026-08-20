@@ -1,0 +1,56 @@
+<html>
+  <body>
+    <h1>TABLE OF CONTENTS</h1>
+    <p>Item 1A. Risk Factors</p>
+    <p>Item 7. MD&amp;A</p>
+    <p>Item 7A. Market Risk</p>
+    <p>Item 8. Financial Statements</p>
+
+    <div>
+      <p>Item 1A. Risk Factors</p>
+      <p>
+        Visible risk factor body that must be long enough to beat the table of
+        contents. Cybersecurity, supply chain, and competition could harm results.
+        <ix:nonNumeric name="fake">XBRL visible text stays.</ix:nonNumeric>
+      </p>
+      <ix:hidden>secret taxonomy junk must not appear</ix:hidden>
+      <table>
+        <tr><th>Risk</th><th>Level</th></tr>
+        <tr><td>Cyber</td><td>High</td></tr>
+      </table>
+      <p>
+        More risk factor narrative so this span is obviously larger than the TOC
+        entry that also says Item 1A. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Investors should consider these risks carefully.
+      </p>
+    </div>
+
+    <div>
+      <p>Item 7. Management's Discussion and Analysis</p>
+      <p>
+        MD&amp;A body discussing revenue growth, operating expenses, and liquidity.
+        This paragraph is padded so the body match wins over the TOC Item 7.
+        Cash flows from operations increased year over year while unearned
+        revenue remained a material liability. Additional MD&amp;A sentences keep
+        this section clearly longer than the contents listing.
+      </p>
+    </div>
+
+    <div>
+      <p>Item 7A. Quantitative and Qualitative Disclosures About Market Risk</p>
+      <p>
+        Market risk body covering foreign exchange, interest rates, and equity
+        prices. This text must survive exhibit truncation and must not include
+        financial statements from Item 8. Extra sentences ensure a long span.
+      </p>
+    </div>
+
+    <a id="EX-21"></a>
+    <div>Exhibit 21 list of subsidiaries must not appear in any section.</div>
+
+    <div>
+      <p>Item 8. Financial Statements</p>
+      <p>Consolidated statements of income should be scoped out of the corpus.</p>
+    </div>
+  </body>
+</html>
