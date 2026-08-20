@@ -525,10 +525,10 @@ def report(
     ] = None,
     readme: Annotated[
         Path | None,
-        typer.Option(help="README to inject headlines into. Defaults to README.md."),
+        typer.Option(help="README to inject the ablation block into. Defaults to README.md."),
     ] = None,
 ) -> None:
-    """Write ablation tables and inject definition-of-done headlines. No LLM calls."""
+    """Write ablation tables and inject them into the README. No LLM calls."""
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     try:
         dest = run_report(

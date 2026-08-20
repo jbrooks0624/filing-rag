@@ -11,6 +11,23 @@ from filing_rag.evaluate.report import (
 from filing_rag.evaluate.store import load_jsonl, write_jsonl, write_rag_jsonl
 from filing_rag.evaluate.types import QueryRow, RagQueryRow
 
+_FIXED_STAGE1 = (
+    ("dense", False, 0.656, 25.0),
+    ("dense", True, 0.789, 955.0),
+    ("sparse", False, 0.656, 1.0),
+    ("sparse", True, 0.667, 1149.0),
+    ("hybrid", False, 0.722, 26.0),
+    ("hybrid", True, 0.733, 1189.0),
+)
+_FIXED_STAGE2 = (
+    ("dense", False, 0.732, 0.350, 1427.0, 0.000577),
+    ("dense", True, 0.743, 0.271, 4190.0, 0.000584),
+    ("sparse", False, 0.719, 0.341, 1491.0, 0.000548),
+    ("sparse", True, 0.665, 0.272, 4085.0, 0.000560),
+    ("hybrid", False, 0.819, 0.340, 1713.0, 0.000582),
+    ("hybrid", True, 0.722, 0.280, 4463.0, 0.000578),
+)
+
 
 def _stage1(
     *,
@@ -54,12 +71,15 @@ def _stage2(
     answerable: bool,
     refused: bool = False,
     faithfulness: float | None = None,
+    context_precision: float | None = None,
     serving_ms: float = 80.0,
     usd: float = 0.0001,
     question_id: str = "q1",
+    strategy: str = "fixed",
 ) -> RagQueryRow:
+    precision = context_precision if context_precision is not None else faithfulness
     return RagQueryRow(
-        strategy="structural",
+        strategy=strategy,
         mode=mode,
         rerank=rerank,
         question_id=question_id,
@@ -70,7 +90,7 @@ def _stage2(
         refused=refused,
         retrieved_sections=(("acc", "1A"),),
         faithfulness=faithfulness,
-        context_precision=faithfulness,
+        context_precision=precision,
         context_recall=faithfulness,
         relevancy=faithfulness,
         judge_ms=1.0 if answerable else None,
@@ -90,72 +110,62 @@ def _stage2(
 
 
 def _grid_stage1() -> tuple[QueryRow, ...]:
-    return (
-        _stage1(strategy="fixed", mode="dense", rerank=False, recall=0.400, total_ms=20.0),
-        _stage1(strategy="semantic", mode="dense", rerank=False, recall=0.200, total_ms=30.0),
+    rows = [
         _stage1(
-            strategy="structural",
-            mode="dense",
-            rerank=False,
-            recall=0.800,
-            total_ms=40.0,
-        ),
+            strategy="fixed",
+            mode=mode,
+            rerank=rerank,
+            recall=recall,
+            total_ms=total_ms,
+        )
+        for mode, rerank, recall, total_ms in _FIXED_STAGE1
+    ]
+    rows.append(
         _stage1(
-            strategy="structural",
-            mode="hybrid",
-            rerank=True,
-            recall=1.000,
-            total_ms=80.0,
-        ),
-        _stage1(
-            strategy="structural",
+            strategy="fixed",
             mode="hybrid",
             rerank=True,
             recall=None,
             answerable=False,
-            total_ms=80.0,
+            total_ms=1189.0,
             question_id="ua-1",
-        ),
+        )
     )
+    rows.append(
+        _stage1(strategy="structural", mode="dense", rerank=False, recall=0.400, total_ms=40.0)
+    )
+    rows.append(
+        _stage1(strategy="semantic", mode="dense", rerank=False, recall=0.200, total_ms=30.0)
+    )
+    return tuple(rows)
 
 
 def _grid_stage2() -> tuple[RagQueryRow, ...]:
-    return (
-        _stage2(
-            mode="dense",
-            rerank=False,
-            answerable=True,
-            faithfulness=0.700,
-            serving_ms=80.0,
-            usd=0.000080,
-        ),
-        _stage2(
-            mode="dense",
-            rerank=False,
-            answerable=False,
-            refused=True,
-            serving_ms=80.0,
-            usd=0.000080,
-            question_id="ua-1",
-        ),
-        _stage2(
-            mode="hybrid",
-            rerank=True,
-            answerable=True,
-            faithfulness=0.900,
-            serving_ms=200.0,
-            usd=0.000100,
-        ),
-        _stage2(
-            mode="hybrid",
-            rerank=True,
-            answerable=False,
-            refused=True,
-            serving_ms=200.0,
-            usd=0.000100,
-            question_id="ua-1",
-        ),
-    )
+    rows: list[RagQueryRow] = []
+    for mode, rerank, faith, ctx_p, serving_ms, usd in _FIXED_STAGE2:
+        rows.append(
+            _stage2(
+                mode=mode,
+                rerank=rerank,
+                answerable=True,
+                faithfulness=faith,
+                context_precision=ctx_p,
+                serving_ms=serving_ms,
+                usd=usd,
+            )
+        )
+        rows.append(
+            _stage2(
+                mode=mode,
+                rerank=rerank,
+                answerable=False,
+                refused=True,
+                serving_ms=serving_ms,
+                usd=usd,
+                question_id="ua-1",
+            )
+        )
+    return tuple(rows)
 
 
 def _readme(path: Path, *, markers: bool = True) -> Path:
@@ -175,9 +185,9 @@ def test_load_jsonl_roundtrip(tmp_path: Path) -> None:
     write_jsonl(rows, path)
     loaded = load_jsonl(path)
     assert loaded[0].strategy == "fixed"
-    assert loaded[0].recall_at_5 == pytest.approx(0.400)
-    assert loaded[-1].answerable is False
-    assert loaded[-1].recall_at_5 is None
+    assert loaded[0].recall_at_5 == pytest.approx(0.656)
+    assert loaded[6].answerable is False
+    assert loaded[6].recall_at_5 is None
 
 
 def test_report_winner_gap_and_lift(tmp_path: Path) -> None:
@@ -195,21 +205,29 @@ def test_report_winner_gap_and_lift(tmp_path: Path) -> None:
     )
     assert dest == output
     body = output.read_text(encoding="utf-8")
-    assert "Stage 1 retrieval (k=10)" in body
-    assert "Stage 2 generation (k=5)" in body
     injected = readme.read_text(encoding="utf-8")
     assert injected.startswith("before\n")
     assert injected.endswith("after\n")
-    assert "structural is the winning chunker at k=10" in injected
-    assert "mean recall@5=0.900" in injected
-    assert "+0.500 vs fixed" in injected
-    assert "+0.700 vs semantic" in injected
-    assert "hybrid+rerank recall@5=1.000" in injected
-    assert "+0.200 lift vs dense with rerank off (0.800)" in injected
-    assert "At k=5, hybrid+rerank p95=" in injected
-    assert "$0.000100/query" in injected
-    assert "faithfulness is 0.900 at k=5" in injected
-    assert "refusal rate on that config is 1.000 (1 unanswerable)" in injected
+    assert body.rstrip() in injected
+    assert "Stage 1 retrieval (k=10)" in injected
+    assert "Stage 2 generation (k=5)" in injected
+    assert "fixed is the winning chunker at k=10" in injected
+    assert "mean recall@5=0.704" in injected
+    assert "dense+rerank is the best retrieval config (recall@5=0.789)" in injected
+    assert "+0.056 vs hybrid+rerank (0.733)" in injected
+    assert "Reranking alone, on dense: 0.656 → 0.789 (+0.133)" in injected
+    assert "Fusion alone, no rerank: 0.656 → 0.722 (+0.066)" in injected
+    assert "Reranking on top of fusion: 0.722 → 0.733 (+0.011)" in injected
+    assert "hybrid with rerank off has the best faithfulness (0.819)" in injected
+    assert "turning rerank on drops it to 0.722" in injected
+    assert "nearly triples p50 (1713ms → 4463ms)" in injected
+    assert "Context precision falls for every rerank-on config" in injected
+    assert "Refusal rate is 1.000 on all 1 unanswerable question" in injected
+    assert "generation cost is flat" in injected
+    assert "fusion adds almost nothing" in injected
+    assert "Stage 2 (k=5) disagrees" in injected
+    assert "degrades answer faithfulness at serving k=5" in injected
+    assert "not hybrid+rerank" in injected
 
 
 def test_report_missing_stage2_uses_stage1_p95(tmp_path: Path) -> None:
@@ -227,9 +245,13 @@ def test_report_missing_stage2_uses_stage1_p95(tmp_path: Path) -> None:
     body = output.read_text(encoding="utf-8")
     assert "Stage 2 JSONL not found" in body
     injected = readme.read_text(encoding="utf-8")
-    assert "At k=10, hybrid+rerank p95=80ms vs dense with rerank off p95=40ms" in injected
+    assert "Stage 1 retrieval (k=10)" in injected
+    assert "dense+rerank is the best retrieval config (recall@5=0.789)" in injected
+    assert "Stage 2 faithfulness is n/a" in injected
+    assert "Refusal rate n/a" in injected
     assert "dollars/query n/a" in injected
-    assert "faithfulness at k=5 is n/a" in injected
+    assert "Stage 2 generation" not in injected
+    assert "disagrees" not in injected
 
 
 def test_report_missing_markers_fails(tmp_path: Path) -> None:
